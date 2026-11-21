@@ -8,6 +8,13 @@
       "when": 1795274539270,
       "tag": "0000_wlc_ia_v010_foundation",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795274679586,
+      "tag": "0001_deprecate_app_user_connections",
+      "breakpoints": true
     }
   ]
 }

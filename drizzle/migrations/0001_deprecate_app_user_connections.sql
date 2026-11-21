@@ -1,0 +1,1 @@
+COMMENT ON TABLE public.app_user_connections IS 'DEPRECATED: não utilizada; GitHub conecta via token de API no servidor';
