@@ -19,10 +19,9 @@ export const inspectDatabase = createServerFn({ method: "GET" })
     if (error) return { connected: false as const, error: error.message };
     const info = data as unknown as SchemaInfo;
     const counts: Record<string, number | null> = {};
-    for (const t of info.tables) {
-      if (t.name === "app_user_connections") { counts[t.name] = null; continue; }
+    await Promise.all(info.tables.map(async (t) => {
       const { count, error: e } = await context.supabase.from(t.name as "messages").select("*", { count: "exact", head: true });
       counts[t.name] = e ? null : (count ?? 0);
-    }
+    }));
     return { connected: true as const, info, myRowCounts: counts };
   });

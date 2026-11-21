@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## WLC IA architecture
+- Server-only code lives in `src/services/*.server.ts`; authenticated RPC in `src/services/*.functions.ts` — keeps secrets out of the client bundle.
+- Gemini is called directly via the official REST API with the `x-goog-api-key` header (required by `AQ.` keys); the model id lives only in `src/config/app.ts`.
+- Chat streaming goes through `src/routes/api/chat.ts`, which verifies the bearer and persists both user and model messages server-side.
+- GitHub access is read-only through the server `GITHUB_TOKEN`; never add write calls without an explicit request.
+- Navigation is one list (`components/nav/nav-items.ts`) rendered as sidebar (md+) or bottom bar (<md) by CSS only.
+- Document architecture changes in `docs/ARCHITECTURE.md`.
