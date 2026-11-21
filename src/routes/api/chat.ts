@@ -62,13 +62,13 @@ export const Route = createFileRoute("/api/chat")({
         } catch (e) {
           const msg = `Falha de rede ao contatar o Gemini: ${e instanceof Error ? e.message : String(e)}`;
           await recordStatus(supabase, userId, "gemini", { status: "error", last_error: msg });
-          return Response.json({ error: msg }, { status: 502 });
+          return Response.json({ error: msg }, { status: 424 });
         }
         if (!upstream.ok || !upstream.body) {
           const msg = describeGeminiError(upstream.status, await upstream.text());
           console.error("gemini error", msg);
           await recordStatus(supabase, userId, "gemini", { status: "error", last_error: msg });
-          return Response.json({ error: msg }, { status: 502 });
+          return Response.json({ error: msg }, { status: 424 });
         }
 
         const encoder = new TextEncoder();
